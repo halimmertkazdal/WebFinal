@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { User } from './entities/user.entity';
+import { User, UserRole } from './entities/user.entity';
 import * as bcrypt from 'bcrypt';
 
 @Injectable()
@@ -22,8 +22,14 @@ export class UsersService {
       throw new ConflictException('Username or email already exists');
     }
 
-    const hashedPassword = await bcrypt.hash(createUserDto.password, 10);
-    const user = this.usersRepository.create({ ...createUserDto, password: hashedPassword });
+    const { role, password, ...rest } = createUserDto;
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    const user = this.usersRepository.create({
+      ...rest,
+      password: hashedPassword,
+      role: role as UserRole
+    });
     return this.usersRepository.save(user);
   }
 
@@ -40,10 +46,18 @@ export class UsersService {
   }
 
   async update(id: number, updateUserDto: UpdateUserDto) {
-    if (updateUserDto.password) {
-      updateUserDto.password = await bcrypt.hash(updateUserDto.password, 10);
+    const { role, password, ...rest } = updateUserDto;
+    const updateData: any = { ...rest };
+
+    if (password) {
+      updateData.password = await bcrypt.hash(password, 10);
     }
-    return this.usersRepository.update(id, updateUserDto);
+
+    if (role) {
+      updateData.role = role as UserRole;
+    }
+
+    return this.usersRepository.update(id, updateData);
   }
 
   remove(id: number) {
