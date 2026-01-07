@@ -34,7 +34,9 @@ export class UsersService {
   }
 
   findAll() {
-    return this.usersRepository.find();
+    return this.usersRepository.find({
+      order: { id: 'ASC' }
+    });
   }
 
   findOne(id: number) {

@@ -117,7 +117,8 @@ export const AdminDashboard = () => {
                             <table className="w-full text-left">
                                 <thead className="bg-slate-50 text-slate-500 text-sm font-semibold uppercase tracking-wider border-b border-slate-100">
                                     <tr>
-                                        <th className="p-4 rounded-tl-xl">ID</th>
+                                        <th className="p-4 rounded-tl-xl w-16">Sıra</th>
+                                        <th className="p-4 w-16">ID</th>
                                         <th className="p-4">Kullanıcı Adı</th>
                                         <th className="p-4">E-posta</th>
                                         <th className="p-4">Rol</th>
@@ -125,8 +126,9 @@ export const AdminDashboard = () => {
                                     </tr>
                                 </thead>
                                 <tbody className="divide-y divide-slate-100">
-                                    {users.map((u: any) => (
+                                    {users.map((u: any, index: number) => (
                                         <tr key={u.id} className="hover:bg-slate-50 transition">
+                                            <td className="p-4 text-slate-700 font-bold">{index + 1}</td>
                                             <td className="p-4 text-slate-400 font-mono text-sm">#{u.id}</td>
                                             <td className="p-4 font-bold text-slate-700">{u.username}</td>
                                             <td className="p-4 text-slate-500">{u.email}</td>
