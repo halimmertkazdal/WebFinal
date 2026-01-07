@@ -154,7 +154,12 @@ export const Profile = () => {
                                     ) : (
                                         bookmarks.length > 0 ? (
                                             bookmarks.map((bookmark: any) => (
-                                                <SnippetCard key={bookmark.id} snippet={bookmark.snippet} />
+                                                <SnippetCard
+                                                    key={bookmark.id}
+                                                    snippet={bookmark.snippet}
+                                                    onDelete={() => fetchContent()}
+                                                    onBookmarkUpdate={() => fetchContent()}
+                                                />
                                             ))
                                         ) : (
                                             <div className="col-span-2 text-center py-10 bg-white rounded-2xl border border-dashed border-slate-300">
