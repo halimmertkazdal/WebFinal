@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useCallback, useEffect } from 'react';
+import React, { createContext, useContext, useState, useCallback } from 'react';
 import { X, CheckCircle, AlertCircle, Info } from 'lucide-react';
 
 export type ToastType = 'success' | 'error' | 'info';
@@ -38,12 +38,12 @@ export const ToastProvider: React.FC<{ children: React.ReactNode }> = ({ childre
                     <div
                         key={toast.id}
                         className={`flex items-center p-4 rounded-xl shadow-lg border backdrop-blur-md animate-slide-in-right transition-all duration-300 transform translate-y-0 ${toast.type === 'success' ? 'bg-emerald-50/90 border-emerald-100 text-emerald-800' :
-                                toast.type === 'error' ? 'bg-red-50/90 border-red-100 text-red-800' :
-                                    'bg-blue-50/90 border-blue-100 text-blue-800'
+                            toast.type === 'error' ? 'bg-red-50/90 border-red-100 text-red-800' :
+                                'bg-blue-50/90 border-blue-100 text-blue-800'
                             }`}
                     >
                         <div className={`mr-3 p-1 rounded-full ${toast.type === 'success' ? 'bg-emerald-100' :
-                                toast.type === 'error' ? 'bg-red-100' : 'bg-blue-100'
+                            toast.type === 'error' ? 'bg-red-100' : 'bg-blue-100'
                             }`}>
                             {toast.type === 'success' ? <CheckCircle size={16} className="text-emerald-600" /> :
                                 toast.type === 'error' ? <AlertCircle size={16} className="text-red-600" /> :

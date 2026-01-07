@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import client from '../api/client';
-import { Trash2, Plus, Users, Code, Globe, Lock, Save } from 'lucide-react';
+import { Trash2, Plus, Users, Globe } from 'lucide-react';
 import { useToast } from '../context/ToastContext';
 
 export const AdminDashboard = () => {

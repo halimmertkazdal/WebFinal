@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { Code2, LogOut, Plus, Bookmark, Settings, User } from 'lucide-react';
+import { Code2, LogOut, Plus, Settings, User } from 'lucide-react';
 import { useToast } from '../context/ToastContext';
 
 export const Navbar = () => {

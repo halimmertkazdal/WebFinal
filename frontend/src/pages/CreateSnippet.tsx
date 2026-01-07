@@ -16,7 +16,7 @@ export const CreateSnippet = () => {
     useEffect(() => {
         client.get('/languages')
             .then(res => setLanguages(res.data))
-            .catch(err => addToast('Diller yüklenemedi', 'error'));
+            .catch(() => addToast('Diller yüklenemedi', 'error'));
     }, []);
 
     const handleSubmit = async (e: React.FormEvent) => {
