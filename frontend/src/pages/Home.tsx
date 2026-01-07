@@ -60,7 +60,7 @@ export const Home = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 pb-20">
                 {filteredSnippets.map((snippet: any) => (
                     <div key={snippet.id} className="h-full">
-                        <SnippetCard snippet={snippet} />
+                        <SnippetCard snippet={snippet} onDelete={fetchSnippets} />
                     </div>
                 ))}
             </div>
