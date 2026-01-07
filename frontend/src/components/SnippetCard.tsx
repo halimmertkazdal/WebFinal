@@ -37,11 +37,11 @@ export const SnippetCard: React.FC<SnippetProps> = ({ snippet, onBookmarkUpdate,
             <div className="p-5 border-b border-slate-50 flex justify-between items-start bg-gradient-to-br from-white to-slate-50/50">
                 <div>
                     <div className="flex items-center space-x-2 mb-1.5">
-                        <Link to={`/snippet/${snippet.id}`} className="font-bold text-slate-800 text-lg hover:text-indigo-600 transition truncate block">
+                        <Link to={`/snippet/${snippet.id}`} className="font-bold text-slate-800 text-lg hover:text-indigo-600 transition truncate block flex-1 min-w-0">
                             {snippet.title}
                         </Link>
                         <span
-                            className="text-[10px] px-2.5 py-1 rounded-full font-bold uppercase tracking-wider shadow-sm"
+                            className="text-[10px] px-2.5 py-1 rounded-full font-bold uppercase tracking-wider shadow-sm shrink-0"
                             style={{ backgroundColor: snippet.language.colorCode + '15', color: snippet.language.colorCode }}
                         >
                             {snippet.language.name}
