@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Copy, Check, Bookmark, Trash2 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import client from '../api/client';
@@ -6,9 +7,10 @@ import client from '../api/client';
 interface SnippetProps {
     snippet: any;
     onBookmarkUpdate?: () => void;
+    onDelete?: () => void;
 }
 
-export const SnippetCard: React.FC<SnippetProps> = ({ snippet, onBookmarkUpdate }) => {
+export const SnippetCard: React.FC<SnippetProps> = ({ snippet, onBookmarkUpdate, onDelete }) => {
     const { user } = useAuth();
     const [copied, setCopied] = useState(false);
     const [bookmarked, setBookmarked] = useState(snippet.isBookmarked);
@@ -35,7 +37,9 @@ export const SnippetCard: React.FC<SnippetProps> = ({ snippet, onBookmarkUpdate 
             <div className="p-5 border-b border-slate-50 flex justify-between items-start bg-gradient-to-br from-white to-slate-50/50">
                 <div>
                     <div className="flex items-center space-x-2 mb-1.5">
-                        <h3 className="font-bold text-slate-800 text-lg">{snippet.title}</h3>
+                        <Link to={`/snippet/${snippet.id}`} className="font-bold text-slate-800 text-lg hover:text-indigo-600 transition truncate block">
+                            {snippet.title}
+                        </Link>
                         <span
                             className="text-[10px] px-2.5 py-1 rounded-full font-bold uppercase tracking-wider shadow-sm"
                             style={{ backgroundColor: snippet.language.colorCode + '15', color: snippet.language.colorCode }}
@@ -57,8 +61,11 @@ export const SnippetCard: React.FC<SnippetProps> = ({ snippet, onBookmarkUpdate 
                                 if (!window.confirm('Snippet silinsin mi?')) return;
                                 try {
                                     await client.delete(`/snippets/${snippet.id}`);
-                                    // ideally trigger a refresh here, but for now just reload or use context
-                                    window.location.reload();
+                                    if (onDelete) {
+                                        onDelete();
+                                    } else {
+                                        window.location.reload();
+                                    }
                                 } catch (e) { alert('Silme başarısız'); }
                             }}
                             className="p-2 text-slate-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition"

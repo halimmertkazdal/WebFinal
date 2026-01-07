@@ -140,7 +140,11 @@ export const Profile = () => {
                                     {user?.role === 'editor' ? (
                                         mySnippets.length > 0 ? (
                                             mySnippets.map((snippet: any) => (
-                                                <SnippetCard key={snippet.id} snippet={snippet} />
+                                                <SnippetCard
+                                                    key={snippet.id}
+                                                    snippet={snippet}
+                                                    onDelete={() => fetchContent()}
+                                                />
                                             ))
                                         ) : (
                                             <div className="col-span-2 text-center py-10 bg-white rounded-2xl border border-dashed border-slate-300">

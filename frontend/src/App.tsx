@@ -6,6 +6,7 @@ import { Home } from './pages/Home';
 import { CreateSnippet } from './pages/CreateSnippet';
 import { Profile } from './pages/Profile';
 import { AdminDashboard } from './pages/AdminDashboard';
+import { SnippetDetail } from './pages/SnippetDetail';
 import { useAuth } from './context/AuthContext';
 import { ToastProvider } from './context/ToastContext';
 
@@ -34,6 +35,7 @@ export const App = () => {
           <Route path="/" element={<Home />} />
           <Route path="/profile" element={<PrivateRoute><Profile /></PrivateRoute>} />
           <Route path="/create" element={<PrivateRoute adminOnly={false} allowedRoles={['admin', 'editor']}><CreateSnippet /></PrivateRoute>} />
+          <Route path="/snippet/:id" element={<SnippetDetail />} />
           <Route path="/admin" element={<PrivateRoute adminOnly><AdminDashboard /></PrivateRoute>} />
         </Routes>
       </div>
