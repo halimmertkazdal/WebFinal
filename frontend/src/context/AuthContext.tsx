@@ -26,7 +26,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         const token = localStorage.getItem('token');
         if (token) {
             try {
-                const { data } = await client.get('/auth/profile');
+                // Add explicit timeout to prevent infinite loading
+                const { data } = await client.get('/auth/profile', { timeout: 5000 });
                 setUser({ id: data.userId, username: data.username, role: data.role });
             } catch (error) {
                 console.error('Auth check failed', error);
@@ -52,7 +53,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         setUser(null);
     };
 
-    if (loading) return <div className="min-h-screen bg-slate-900 flex items-center justify-center text-white">Loading...</div>;
+    if (loading) return (
+        <div className="min-h-screen bg-slate-50 flex items-center justify-center">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
+        </div>
+    );
 
     return (
         <AuthContext.Provider value={{
