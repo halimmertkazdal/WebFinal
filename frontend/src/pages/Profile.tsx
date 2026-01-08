@@ -48,10 +48,17 @@ export const Profile = () => {
     const handleUpdateProfile = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
-            // Update logic here (needs backend endpoint support for user update)
-            // await client.patch(`/users/${user.id}`, { username, password: newPassword });
-            addToast('Profil güncelleme özelliği yakında aktif olacak!', 'info');
+            const updateData: any = { username };
+            if (newPassword) {
+                updateData.password = newPassword;
+            }
+
+            if (!user) return;
+            await client.patch(`/users/${user.id}`, updateData);
+            addToast('Profil başarıyla güncellendi', 'success');
+            setNewPassword(''); // Clear password field after success
         } catch (error) {
+            console.error(error);
             addToast('Güncelleme başarısız', 'error');
         }
     };
