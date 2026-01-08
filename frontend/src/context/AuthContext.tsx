@@ -28,7 +28,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
             try {
                 // Add explicit timeout to prevent infinite loading
                 const { data } = await client.get('/auth/profile', { timeout: 5000 });
-                setUser({ id: data.userId, username: data.username, role: data.role });
+                setUser({ id: data.id, username: data.username, role: data.role });
             } catch (error) {
                 console.error('Auth check failed', error);
                 localStorage.removeItem('token');
