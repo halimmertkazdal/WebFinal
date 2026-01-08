@@ -35,4 +35,10 @@ export class SnippetsController {
   remove(@Param('id') id: string, @Request() req) {
     return this.snippetsService.remove(+id, req.user);
   }
+
+  @Post('seed')
+  @UseGuards(AuthGuard('jwt'))
+  seed(@Request() req) {
+    return this.snippetsService.createDemo(req.user);
+  }
 }

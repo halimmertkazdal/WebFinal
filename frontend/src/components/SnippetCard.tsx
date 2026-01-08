@@ -8,9 +8,10 @@ interface SnippetProps {
     snippet: any;
     onBookmarkUpdate?: () => void;
     onDelete?: () => void;
+    isBookmarksPage?: boolean;
 }
 
-export const SnippetCard: React.FC<SnippetProps> = ({ snippet, onBookmarkUpdate, onDelete }) => {
+export const SnippetCard: React.FC<SnippetProps> = ({ snippet, onBookmarkUpdate, onDelete, isBookmarksPage }) => {
     const { user } = useAuth();
     const [copied, setCopied] = useState(false);
     const [bookmarked, setBookmarked] = useState(snippet.isBookmarked);
@@ -55,20 +56,28 @@ export const SnippetCard: React.FC<SnippetProps> = ({ snippet, onBookmarkUpdate,
                 </div>
                 <div className="flex items-center gap-1 shrink-0">
                     {/* Show delete button if user is owner or admin */}
-                    {(user?.role === 'admin' || user?.username === snippet.user.username) && (
+
+                    {/* Delete Action (Different behavior based on page) */}
+                    {((user?.role === 'admin' || user?.username === snippet.user.username) || isBookmarksPage) && (
                         <button
                             onClick={async () => {
-                                if (!window.confirm('Snippet silinsin mi?')) return;
-                                try {
-                                    await client.delete(`/snippets/${snippet.id}`);
-                                    if (onDelete) {
-                                        onDelete();
-                                    } else {
-                                        window.location.reload();
-                                    }
-                                } catch (e) { alert('Silme başarısız'); }
+                                if (isBookmarksPage) {
+                                    if (!window.confirm('Favorilerden çıkarılsın mı?')) return;
+                                    await toggleBookmark();
+                                } else {
+                                    if (!window.confirm('Snippet silinsin mi?')) return;
+                                    try {
+                                        await client.delete(`/snippets/${snippet.id}`);
+                                        if (onDelete) {
+                                            onDelete();
+                                        } else {
+                                            window.location.reload();
+                                        }
+                                    } catch (e) { alert('Silme başarısız'); }
+                                }
                             }}
                             className="p-2 text-slate-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition"
+                            title={isBookmarksPage ? "Favorilerden Çıkar" : "Snippetı Sil"}
                         >
                             <Trash2 size={18} />
                         </button>

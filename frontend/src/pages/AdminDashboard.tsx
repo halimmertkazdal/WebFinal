@@ -82,30 +82,49 @@ export const AdminDashboard = () => {
         }
     };
 
+    const handleSeed = async () => {
+        if (!window.confirm('10 adet demo snippet eklensin mi?')) return;
+        try {
+            await client.post('/snippets/seed');
+            addToast('Demo veriler eklendi', 'success');
+        } catch (e) {
+            addToast('Ekleme başarısız', 'error');
+        }
+    };
+
     return (
         <div className="max-w-7xl mx-auto px-4 py-24 min-h-screen">
             <h1 className="text-3xl font-extrabold text-slate-800 mb-8 tracking-tight">Yönetici Paneli</h1>
 
             {/* Tabs */}
-            <div className="flex space-x-4 mb-8 bg-white p-2 rounded-xl border border-slate-100 shadow-sm w-fit">
+            <div className="flex justify-between items-center mb-8">
+                <div className="flex space-x-4 bg-white p-2 rounded-xl border border-slate-100 shadow-sm w-fit">
+                    <button
+                        onClick={() => setActiveTab('users')}
+                        className={`flex items-center space-x-2 px-6 py-2.5 rounded-lg transition font-medium ${activeTab === 'users' ? 'bg-indigo-600 text-white shadow-md' : 'text-slate-500 hover:bg-slate-50'}`}
+                    >
+                        <Users size={18} />
+                        <span>Kullanıcılar</span>
+                    </button>
+                    <button
+                        onClick={() => setActiveTab('languages')}
+                        className={`flex items-center space-x-2 px-6 py-2.5 rounded-lg transition font-medium ${activeTab === 'languages' ? 'bg-indigo-600 text-white shadow-md' : 'text-slate-500 hover:bg-slate-50'}`}
+                    >
+                        <Globe size={18} />
+                        <span>Diller</span>
+                    </button>
+                    {/* <button disabled className="flex items-center space-x-2 px-6 py-2.5 rounded-lg text-slate-300 cursor-not-allowed">
+                        <Code size={18} />
+                        <span>Snippetlar (Yakında)</span>
+                    </button> */}
+                </div>
                 <button
-                    onClick={() => setActiveTab('users')}
-                    className={`flex items-center space-x-2 px-6 py-2.5 rounded-lg transition font-medium ${activeTab === 'users' ? 'bg-indigo-600 text-white shadow-md' : 'text-slate-500 hover:bg-slate-50'}`}
+                    onClick={handleSeed}
+                    className="flex items-center space-x-2 px-6 py-3 rounded-xl bg-emerald-50 text-emerald-600 hover:bg-emerald-100 transition font-bold"
                 >
-                    <Users size={18} />
-                    <span>Kullanıcılar</span>
+                    <Plus size={18} />
+                    <span>Demo Veri Ekle</span>
                 </button>
-                <button
-                    onClick={() => setActiveTab('languages')}
-                    className={`flex items-center space-x-2 px-6 py-2.5 rounded-lg transition font-medium ${activeTab === 'languages' ? 'bg-indigo-600 text-white shadow-md' : 'text-slate-500 hover:bg-slate-50'}`}
-                >
-                    <Globe size={18} />
-                    <span>Diller</span>
-                </button>
-                {/* <button disabled className="flex items-center space-x-2 px-6 py-2.5 rounded-lg text-slate-300 cursor-not-allowed">
-                    <Code size={18} />
-                    <span>Snippetlar (Yakında)</span>
-                </button> */}
             </div>
 
             {/* Content Area */}

@@ -35,7 +35,7 @@ export const Bookmarks = () => {
                 {bookmarks.length > 0 ? (
                     bookmarks.map((b: any) => (
                         <div key={b.id} className="break-inside-avoid">
-                            <SnippetCard snippet={{ ...b.snippet, isBookmarked: true }} onBookmarkUpdate={fetchBookmarks} />
+                            <SnippetCard snippet={{ ...b.snippet, isBookmarked: true }} onBookmarkUpdate={fetchBookmarks} isBookmarksPage={true} />
                         </div>
                     ))
                 ) : (
