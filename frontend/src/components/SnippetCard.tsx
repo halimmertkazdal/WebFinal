@@ -34,7 +34,7 @@ export const SnippetCard: React.FC<SnippetProps> = ({ snippet, onBookmarkUpdate,
 
     return (
         <div className="bg-white rounded-2xl overflow-hidden border border-slate-100 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.12)] hover:-translate-y-1 transition-all duration-300 group h-full flex flex-col">
-            <div className="p-5 border-b border-slate-50 flex items-start gap-3 bg-gradient-to-br from-white to-slate-50/50">
+            <div className="p-4 border-b border-slate-50 flex items-center justify-between gap-3 bg-gradient-to-br from-white to-slate-50/50 flex-nowrap">
                 <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 mb-1.5">
                         <Link to={`/snippet/${snippet.id}`} className="font-bold text-slate-800 text-lg hover:text-indigo-600 transition truncate block flex-1 min-w-0">
@@ -53,7 +53,7 @@ export const SnippetCard: React.FC<SnippetProps> = ({ snippet, onBookmarkUpdate,
                         <span>{new Date(snippet.createdAt).toLocaleDateString()}</span>
                     </p>
                 </div>
-                <div className="flex items-center gap-1 shrink-0 ml-auto">
+                <div className="flex items-center gap-1 shrink-0">
                     {/* Show delete button if user is owner or admin */}
                     {(user?.role === 'admin' || user?.username === snippet.user.username) && (
                         <button
